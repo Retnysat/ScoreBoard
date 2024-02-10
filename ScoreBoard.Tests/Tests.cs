@@ -7,7 +7,11 @@ namespace ScoreBoard.Tests
         [Fact]
         public void Test1()
         {
+            //Arange
 
+            //Act
+
+            //Assert
         }
     }
 }
