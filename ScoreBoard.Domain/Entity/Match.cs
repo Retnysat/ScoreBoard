@@ -9,6 +9,7 @@ namespace ScoreBoard.Domain.Entity
         public string AwayTeam { get; set; }
         public int AwayTeamScore { get; set; }
         public Boolean Finished { get; set; } = false;
+        public int TmpId { get; set; } = 0;
 
         public Match(int id, string homeTeam, int homeTeamScore, string awayTeam, int awayTeamScore)
         {

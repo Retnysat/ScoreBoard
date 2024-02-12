@@ -1,5 +1,7 @@
-﻿using ScoreBoard.App.Concrete;
+﻿using ScoreBoard.App.Abstract;
+using ScoreBoard.App.Concrete;
 using ScoreBoard.App.Managers;
+using ScoreBoard.Domain.Entity;
 
 namespace ScoreBoardADal
 {
@@ -35,10 +37,10 @@ namespace ScoreBoardADal
                 switch (operatnion.KeyChar)
                 {
                     case '1':
-                        var newId = matchManager.AddNewMatch();
+                        var newId = matchManager.StartNewMatch();
                         break;
                     case '2':
-                        //matchManager.UpdateMatch(); //to do
+                        matchManager.ChangeMatchScore();
                         break;
                     case '3':
                         matchManager.FinishMatch();

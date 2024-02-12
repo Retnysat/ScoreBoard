@@ -16,33 +16,61 @@ namespace ScoreBoard.App.Concrete
 
         public void ShowAllMatchesInProgress()
         {
-            foreach (var match in Items.OrderBy(p => p.Id))
+            int viewId = 0;
+
+            foreach (var match in Items.OrderByDescending(p => (p.HomeTeamScore + p.AwayTeamScore)).ThenByDescending(p => p.Id))
             {
-                if (!(match.Finished)) Console.WriteLine($"{match.Id}. {match.HomeTeam} {match.HomeTeamScore} - {match.AwayTeam} {match.AwayTeamScore}");
+                if (!(match.Finished))
+                {
+                    viewId++;
+                    UpdateTmpId(match, viewId);
+                    Console.WriteLine($"{match.TmpId}. {match.HomeTeam} {match.HomeTeamScore} - {match.AwayTeam} {match.AwayTeamScore}");
+                }
             }
         }
 
-        public void DeleteMatchById(int matchId)
+        public int CountAllMatchesInProgress()
+        {
+            int count = Items.Count(p => p.Finished == false);
+            return count;
+        }
+
+        public void DeleteMatch(Match match)
+        {
+            RemoveItem(match);
+        }
+
+        public void MarkMatchAsFinished(Match match)
+        {
+            match.Finished = true;
+        }
+        public Match GetMatchById(int matchId)
         {
             foreach (var match in Items)
             {
                 if (match.Id == matchId)
                 {
-                    RemoveItem(match);
-                    break;
+                    return match;
                 }
             }
+            return null;
         }
 
-        public void MarkMatchAsFinished(int matchId)
+        public void UpdateTmpId(Match match, int tmpId)
+        {
+            match.TmpId = tmpId;
+        }
+
+        public int GetMatchIdByTmpId(int TmpId)
         {
             foreach (var match in Items)
             {
-                if (match.Id == matchId)
+                if (match.TmpId == TmpId && match.Finished == false)
                 {
-                    match.Finished = true;
+                    return match.Id;
                 }
             }
+            return 0;
         }
     }
 }
